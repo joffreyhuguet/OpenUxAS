@@ -3,7 +3,7 @@
 package UxAS.Common.String_Constant.Content_Type is
 
    Json : constant String := "json";
-   Lmcp : constant String := "lmcp";
+   LMCP : constant String := "LMCP";
    Text : constant String := "text";
    Xml  : constant String := "xml";
 

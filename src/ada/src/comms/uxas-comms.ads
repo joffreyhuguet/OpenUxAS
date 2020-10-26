@@ -1,9 +1,10 @@
 with AVTAS.LMCP.Types;  use AVTAS.LMCP.Types;  -- used by child packages
+pragma Unreferenced (AVTAS.LMCP.Types);
 
 with Ada.Containers.Formal_Hashed_Sets;
 with Ada.Strings.Hash;
 
-with Dynamic_Strings; use Dynamic_Strings;
+with Dynamic_Strings;   use Dynamic_Strings;
 
 package UxAS.Comms is
 

@@ -1,10 +1,10 @@
 --  see OpenUxAS\src\Utilities\UxAS_ConfigurationManager.h
 
-with DOM.Core;
 with AVTAS.LMCP.Types;  use AVTAS.LMCP.Types;
+with DOM.Core;
 with UxAS.Comms;
 
-with Dynamic_Strings; use Dynamic_Strings;
+with Dynamic_Strings;   use Dynamic_Strings;
 
 package UxAS.Common.Configuration_Manager is
 
@@ -122,7 +122,7 @@ private
    --  Populate the specified XML document Doc Doc with all elements in the
    --  base XML doc that have names matching Node_Name
    --
-   --  populateEnabledComponentXmlNode(pugi::xml_node& uxasNode, const std::string& nodeName)
+   --  populateEnabledComponentXmlNode(pugi::xml_node& UxASNode, const std::string& nodeName)
    procedure Populate_Enabled_Components
      (This      : not null access Manager;
       Doc       : in out DOM.Core.Document;

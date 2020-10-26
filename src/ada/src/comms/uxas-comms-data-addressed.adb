@@ -1,5 +1,5 @@
-with GNAT.String_Split;
 with Ada.Strings.Fixed;
+with GNAT.String_Split;
 
 package body UxAS.Comms.Data.Addressed is
 

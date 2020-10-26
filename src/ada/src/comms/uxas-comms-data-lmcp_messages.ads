@@ -1,4 +1,4 @@
---  see OpenUxAS\src\Communications\LmcpMessage.h
+--  see OpenUxAS\src\Communications\LMCPMessage.h
 
 with AVTAS.LMCP.Object;
 
@@ -13,7 +13,7 @@ package UxAS.Comms.Data.LMCP_Messages is
       Attributes : Message_Attributes_Ref;
 
       --  Data payload to be transported
-      --  std::shared_ptr<avtas::lmcp::Object> m_object;
+      --  std::shared_ptr<AVTAS::LMCP::Object> m_object;
       Payload : AVTAS.LMCP.Object.Object_Any;
    end record;
 

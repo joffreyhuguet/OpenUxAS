@@ -37,7 +37,7 @@ package body UxAS.Comms.Transport.ZeroMQ_Fabric is
    begin
       This.zmQContext.Set_Number_Of_IO_Threads (Config.Number_of_IO_Threads);
 
-      --  std::unique_ptr<zmq::socket_t> zmqSocket = uxas::stduxas::make_unique<zmq::socket_t>(*m_zmqContext, socketConfiguration.m_zmqSocketType);
+      --  std::unique_ptr<zmq::socket_t> zmqSocket = UxAS::stdUxAS::make_unique<zmq::socket_t>(*m_zmqContext, socketConfiguration.m_zmqSocketType);
       ZMQ.Sockets.Initialize (Result, This.zmQContext, Config.Zmq_Socket_Type);
 
       if Config.Is_Server_Bind then

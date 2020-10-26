@@ -63,7 +63,7 @@ package UxAS.Comms.Data is
    --  isValid()
    function Is_Valid (This : Message_Attributes) return Boolean;
 
-   --  Content type of payload (e.g., "json", "lmcp", "text", "xml").
+   --  Content type of payload (e.g., "json", "LMCP", "text", "xml").
    --  Valid values for content type are a controlled list. Cannot be an empty
    --  string.
    --      const std::string&
@@ -72,7 +72,7 @@ package UxAS.Comms.Data is
      Post'Class => Payload_Content_Type'Result'Length > 0;
 
    --  Descriptive qualifier for the payload.
-   --  Example values: "afrl.cmasi.AirVehicleState" (LMCP full type name)
+   --  Example values: "AFRL.CMASI.AirVehicleState" (LMCP full type name)
    --  for case LMCP payload; json qualifying descriptor. Generally, is additional
    --  description of the payload beyond the content type value. Valid values
    --  for descriptor are a controlled list - but less constrained than content

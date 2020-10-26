@@ -10,6 +10,7 @@ package body UxAS.Common.Sentinel_Serial_Buffers is
       Result         : out String)
    is
    begin
+      pragma Unreferenced (Result);
       --  Generated stub: replace with real body!
       pragma Compile_Time_Warning (Standard.True, "Get_Next_Payload_String unimplemented");
       raise Program_Error with "Unimplemented procedure Get_Next_Payload_String";
@@ -20,6 +21,7 @@ package body UxAS.Common.Sentinel_Serial_Buffers is
    --------------------------------
 
    function Create_Sentinelized_String (Data : String) return String is
+      pragma Unreferenced (Data);
    begin
       --  Generated stub: replace with real body!
       pragma Compile_Time_Warning (Standard.True, "Create_Sentinelized_String unimplemented");
@@ -44,6 +46,7 @@ package body UxAS.Common.Sentinel_Serial_Buffers is
    ----------------------------------------------
 
    function Get_Detect_Sentinel_Base_Strings_Message (Data : String) return String is
+      pragma Unreferenced (Data);
    begin
       --  Generated stub: replace with real body!
       pragma Compile_Time_Warning (Standard.True, "Get_Detect_Sentinel_Base_Strings_Message unimplemented");

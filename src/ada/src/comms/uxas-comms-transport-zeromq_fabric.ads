@@ -1,8 +1,8 @@
 -- see OpenUxAS\src\Communications\ZeroMqFabric.h
 
 with UxAS.Comms.Transport.ZeroMQ_Socket_Configurations; use UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;
-with ZMQ.Sockets;  use ZMQ.Sockets;
-with ZMQ.Contexts; use ZMQ.Contexts;
+with ZMQ.Contexts;                                      use ZMQ.Contexts;
+with ZMQ.Sockets;                                       use ZMQ.Sockets;
 
 package UxAS.Comms.Transport.ZeroMQ_Fabric is
 

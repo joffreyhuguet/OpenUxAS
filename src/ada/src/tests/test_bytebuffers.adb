@@ -1,7 +1,7 @@
-with Ada.Text_IO;            use Ada.Text_IO;
-with AVTAS.LMCP.Types;       use AVTAS.LMCP.Types;
-with AVTAS.LMCP.ByteBuffers; use AVTAS.LMCP.ByteBuffers;
 with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
+with Ada.Text_IO;            use Ada.Text_IO;
+with AVTAS.LMCP.ByteBuffers; use AVTAS.LMCP.ByteBuffers;
+with AVTAS.LMCP.Types;       use AVTAS.LMCP.Types;
 
 procedure Test_ByteBuffers is
    Byte_Input    : constant Byte := 42;

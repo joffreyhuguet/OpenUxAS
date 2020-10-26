@@ -1,13 +1,13 @@
---  see OpenUxAS\src\Communications\LmcpObjectMessageReceiverPipe.h
+--  see OpenUxAS\src\Communications\LMCPObjectMessageReceiverPipe.h
 
 with AVTAS.LMCP.Object;
-with UxAS.Comms.Data.LMCP_Messages;
 with UxAS.Comms.Data.Addressed.Attributed;
+with UxAS.Comms.Data.LMCP_Messages;
 with UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers;
 
 use AVTAS.LMCP.Object;
-use UxAS.Comms.Data.LMCP_Messages;
 use UxAS.Comms.Data.Addressed.Attributed;
+use UxAS.Comms.Data.LMCP_Messages;
 use UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers;
 
 package UxAS.Comms.LMCP_Object_Message_Receiver_Pipes is
@@ -56,38 +56,38 @@ package UxAS.Comms.LMCP_Object_Message_Receiver_Pipes is
       Is_Server      : Boolean);
 
    --   bool
-   --   addLmcpObjectSubscriptionAddress(const std::string& address);
-   procedure Add_Lmcp_Object_Subscription_Address
+   --   addLMCPObjectSubscriptionAddress(const std::string& address);
+   procedure Add_LMCP_Object_Subscription_Address
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
       Address : String;
       Result  : out Boolean);
 
    --   bool
-   --   removeLmcpObjectSubscriptionAddress(const std::string& address);
-   procedure Remove_Lmcp_Object_Subscription_Address
+   --   removeLMCPObjectSubscriptionAddress(const std::string& address);
+   procedure Remove_LMCP_Object_Subscription_Address
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
       Address : String;
       Result  : out Boolean);
 
    --   bool
-   --   removeAllLmcpObjectSubscriptionAddresses();
-   procedure Remove_All_Lmcp_Object_Subscription_Address
+   --   removeAllLMCPObjectSubscriptionAddresses();
+   procedure Remove_All_LMCP_Object_Subscription_Address
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
       Result  : out Boolean);
 
-   --   std::unique_ptr<uxas::communications::data::LmcpMessage>
+   --   std::unique_ptr<UxAS::communications::data::LMCPMessage>
    --   getNextMessageObject();
    procedure Get_Next_Message_Object
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
-      Message : out    Any_Lmcp_Message);
+      Message : out    Any_LMCP_Message);
 
-   --   std::unique_ptr<uxas::communications::data::AddressedAttributedMessage>
+   --   std::unique_ptr<UxAS::communications::data::AddressedAttributedMessage>
    --   getNextSerializedMessage();
    procedure Get_Next_Serialized_Message
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
       Message : out    Addressed_Attributed_Message_Ref);
 
-   --   std::unique_ptr<avtas::lmcp::Object>
+   --   std::unique_ptr<AVTAS::LMCP::Object>
    --   deserializeMessage(const std::string& payload);
    procedure Deserialize_Message
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
@@ -110,7 +110,7 @@ private
    type LMCP_Object_Message_Receiver_Pipe is tagged limited record
       Entity_Id  : UInt32;
       Service_Id : UInt32;
-      --    std::unique_ptr<uxas::communications::transport::ZeroMqAddressedAttributedMessageReceiver> m_transportReceiver;
+      --    std::unique_ptr<UxAS::communications::transport::ZeroMqAddressedAttributedMessageReceiver> m_transportReceiver;
       Receiver   : ZeroMq_Addressed_Attributed_Message_Receiver_Ref;
    end record;
 

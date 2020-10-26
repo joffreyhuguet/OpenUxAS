@@ -6,12 +6,12 @@ use  UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;
 
 with UxAS.Comms.Transport.Network_Name;
 
-with UxAS.Common.String_Constant.Lmcp_Network_Socket_Address;
-use  UxAS.Common.String_Constant.Lmcp_Network_Socket_Address;
+with UxAS.Common.String_Constant.LMCP_Network_Socket_Address;
+use  UxAS.Common.String_Constant.LMCP_Network_Socket_Address;
 
 with AVTAS.LMCP.ByteBuffers;   use AVTAS.LMCP.ByteBuffers;
 
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Strings.Unbounded;    use Ada.Strings.Unbounded;
 
 package body UxAS.Comms.LMCP_Object_Message_Receiver_Pipes is
 
@@ -125,42 +125,42 @@ package body UxAS.Comms.LMCP_Object_Message_Receiver_Pipes is
    end Initialize_Stream;
 
    ------------------------------------------
-   -- Add_Lmcp_Object_Subscription_Address --
+   -- Add_LMCP_Object_Subscription_Address --
    ------------------------------------------
 
-   procedure Add_Lmcp_Object_Subscription_Address
+   procedure Add_LMCP_Object_Subscription_Address
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
       Address : String;
       Result  : out Boolean)
    is
    begin
       This.Receiver.Add_Subscription_Address (Address, Result);
-   end Add_Lmcp_Object_Subscription_Address;
+   end Add_LMCP_Object_Subscription_Address;
 
    ---------------------------------------------
-   -- Remove_Lmcp_Object_Subscription_Address --
+   -- Remove_LMCP_Object_Subscription_Address --
    ---------------------------------------------
 
-   procedure Remove_Lmcp_Object_Subscription_Address
+   procedure Remove_LMCP_Object_Subscription_Address
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
       Address : String;
       Result  : out Boolean)
    is
    begin
       This.Receiver.Remove_Subscription_Address (Address, Result);
-   end Remove_Lmcp_Object_Subscription_Address;
+   end Remove_LMCP_Object_Subscription_Address;
 
    -------------------------------------------------
-   -- Remove_All_Lmcp_Object_Subscription_Address --
+   -- Remove_All_LMCP_Object_Subscription_Address --
    -------------------------------------------------
 
-   procedure Remove_All_Lmcp_Object_Subscription_Address
+   procedure Remove_All_LMCP_Object_Subscription_Address
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
       Result  : out Boolean)
    is
    begin
       This.Receiver.Remove_All_Subscription_Addresses (Result);
-   end Remove_All_Lmcp_Object_Subscription_Address;
+   end Remove_All_LMCP_Object_Subscription_Address;
 
    -----------------------------
    -- Get_Next_Message_Object --
@@ -168,7 +168,7 @@ package body UxAS.Comms.LMCP_Object_Message_Receiver_Pipes is
 
    procedure Get_Next_Message_Object
      (This    : in out LMCP_Object_Message_Receiver_Pipe;
-      Message : out    Any_Lmcp_Message)
+      Message : out    Any_LMCP_Message)
    is
       Next_Message : Addressed_Attributed_Message_Ref;
       Object       : AVTAS.LMCP.Object.Object_Any;
@@ -214,7 +214,7 @@ package body UxAS.Comms.LMCP_Object_Message_Receiver_Pipes is
       Buffer.Put_Raw_Bytes (Payload);
       Buffer.Rewind;
 
-      AVTAS.LMCP.Factory.GetObject (Buffer, Message);
+      AVTAS.LMCP.Factory.getObject (Buffer, Message);
    end Deserialize_Message;
 
    ---------------
@@ -246,7 +246,7 @@ package body UxAS.Comms.LMCP_Object_Message_Receiver_Pipes is
       Zmq_High_Water_Mark : constant Int32 := 100_000;
 
       Configuration : constant ZeroMq_Socket_Configuration := Make
-        (Network_Name            => UxAS.Comms.Transport.Network_Name.ZmqLmcpNetwork,
+        (Network_Name            => UxAS.Comms.Transport.Network_Name.ZmqLMCPNetwork,
          Socket_Address          => Socket_Address,
          Zmq_Socket_Type         => Zmq_SocketType,
          Number_of_IO_Threads    => 1,

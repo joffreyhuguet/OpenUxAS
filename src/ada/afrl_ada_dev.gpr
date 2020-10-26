@@ -18,6 +18,8 @@ project AFRL_Ada_Dev is
 
    for Object_Dir use "objs/" & App_Mode;
 
+   STYLE_COMPILER_FLAG := ("-gnaty3aehiIklnOprstux");
+
    DEBUG_COMPILER_FLAGS :=
      ("-gnatwa",
       "-gnatyO",  --  Check that overriding subprograms are explicitly marked as such
@@ -61,11 +63,12 @@ project AFRL_Ada_Dev is
    package Compiler is
       case App_Mode is
          when "debug"   =>
-            for Default_Switches ("ada") use DEBUG_COMPILER_FLAGS & ("-gnata");
+            for Default_Switches ("ada") use STYLE_COMPILER_FLAG & DEBUG_COMPILER_FLAGS & ("-gnata");
          when "gcov"    =>
-            for Default_Switches ("ada") use DEBUG_COMPILER_FLAGS & ("-fprofile-arcs", "-ftest-coverage");
+            for Default_Switches ("ada") use STYLE_COMPILER_FLAG & DEBUG_COMPILER_FLAGS & ("-fprofile-arcs", "-ftest-coverage");
          when "release" =>
             for Default_Switches ("ada") use
+              STYLE_COMPILER_FLAG &
               ("-O2",
                "-gnatn",
                "-gnatp",

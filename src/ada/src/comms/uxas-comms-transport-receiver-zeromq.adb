@@ -1,5 +1,5 @@
-with UxAS.Comms.Transport.ZeroMQ_Fabric;  use UxAS.Comms.Transport;
 with String_Utils;                        use String_Utils;
+with UxAS.Comms.Transport.ZeroMQ_Fabric;  use UxAS.Comms.Transport;
 
 package body UxAS.Comms.Transport.Receiver.ZeroMQ is
 

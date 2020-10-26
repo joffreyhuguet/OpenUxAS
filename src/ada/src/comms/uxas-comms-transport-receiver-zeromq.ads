@@ -1,7 +1,7 @@
 --  see OpenUxAS\src\Communications\ZeroMqReceiverBase.h
 
-with ZMQ.Sockets;                                       use ZMQ.Sockets;
 with UxAS.Comms.Transport.ZeroMQ_Socket_Configurations; use UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;
+with ZMQ.Sockets;                                       use ZMQ.Sockets;
 
 package UxAS.Comms.Transport.Receiver.ZeroMQ is
 

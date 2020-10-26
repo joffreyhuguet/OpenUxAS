@@ -1,7 +1,7 @@
-with Ada.Text_IO;    use Ada.Text_IO;
 with Ada.Exceptions; use Ada.Exceptions;
+with Ada.Text_IO;    use Ada.Text_IO;
 
-with UXAS.Common.Configuration_Manager;  use UXAS.Common.Configuration_Manager;
+with UxAS.Common.Configuration_Manager;  use UxAS.Common.Configuration_Manager;
 
 procedure Test_Configuration_Manager is
    Successfull_Load : Boolean;

@@ -1,11 +1,11 @@
-with Ada.Text_IO;    use Ada.Text_IO;
-with Ada.Exceptions; use Ada.Exceptions;
-with DOM.Core;       use DOM.Core;
-with DOM.Core.Nodes; use DOM.Core.Nodes;
-with GNAT.Strings;   use GNAT.Strings;
-with DOM.Core.Elements;
-with GNAT.Command_Line;
+with Ada.Exceptions;    use Ada.Exceptions;
+with Ada.Text_IO;       use Ada.Text_IO;
 with Ctrl_C_Handler;
+with DOM.Core.Elements;
+with DOM.Core.Nodes;    use DOM.Core.Nodes;
+with DOM.Core;          use DOM.Core;
+with GNAT.Command_Line;
+with GNAT.Strings;
 
 with UxAS.Common.Configuration_Manager;   use UxAS.Common;
 with UxAS.Comms.LMCP_Net_Client.Service;  use UxAS.Comms.LMCP_Net_Client.Service;
@@ -27,7 +27,7 @@ pragma Unreferenced (UxAS.Comms.LMCP_Net_Client.Service.Example_Spark_Service);
 --  need package in closure for sake of package executable part
 
 with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
-with UxAS.Common.String_Constant.Lmcp_Network_Socket_Address;
+with UxAS.Common.String_Constant.LMCP_Network_Socket_Address;
 
 procedure UxAS_Ada is
    
@@ -42,7 +42,7 @@ procedure UxAS_Ada is
    From_Msg_Hub, To_Msg_Hub : Unbounded_String;
    --  These are the TCP address we use for this separate Ada process
    --  to communicate with the UxAS process in C++, taken from the
-   --  LmcpObjectNetworkPublishPullBridge arguments in the XML file.
+   --  LMCPObjectNetworkPublishPullBridge arguments in the XML file.
 
    procedure Launch_Services (Services : DOM.Core.Element; Successful : out Boolean);
    --  Instantiate, configure, initialize, and start each service specified in
@@ -53,9 +53,9 @@ procedure UxAS_Ada is
      (Bridges      : DOM.Core.Element;
       Pub_Address  : out Unbounded_String;
       Pull_Address : out Unbounded_String);
-   --  Find the LmcpObjectNetworkPublishPullBridge specification in the
+   --  Find the LMCPObjectNetworkPublishPullBridge specification in the
    --  configuration XML file and get the corresponding TCP addresses to
-   --  use in package UxAS.Common.String_Constant.Lmcp_Network_Socket_Address.
+   --  use in package UxAS.Common.String_Constant.LMCP_Network_Socket_Address.
    
    procedure Get_Config_File_Name with 
      Global => XML_Cfg_File_Name;
@@ -103,7 +103,7 @@ procedure UxAS_Ada is
 
             New_Service.Configure_Service
               (Parent_Of_Work_Directory => Configuration_Manager.Root_Data_Work_Directory,
-               Service_XML_Node         => Next,
+               Service_Xml_Node         => Next,
                Result                   => Successful);
             if not Successful then
                Put_Line ("Could not Configure_Service for " & Service_Type_Name);
@@ -136,13 +136,13 @@ procedure UxAS_Ada is
       Pub_Address := Null_Unbounded_String;
       Pull_Address := Null_Unbounded_String;
 
-      --  <Bridge Type="LmcpObjectNetworkPublishPullBridge" AddressPUB="tcp://127.0.0.1:5560" AddressPULL="tcp://127.0.0.1:5561">
+      --  <Bridge Type="LMCPObjectNetworkPublishPullBridge" AddressPUB="tcp://127.0.0.1:5560" AddressPULL="tcp://127.0.0.1:5561">
       Next := First_Child (Bridges);
       while Next /= null loop
          declare
             Service_Type_Name : constant String := DOM.Core.Elements.Get_Attribute (Next, Name => "Type");
          begin
-            if Service_Type_Name = "LmcpObjectNetworkPublishPullBridge" then
+            if Service_Type_Name = "LMCPObjectNetworkPublishPullBridge" then
                Pub_Address  := To_Unbounded_String (DOM.Core.Elements.Get_Attribute (Next, Name => "AddressPUB"));
                Pull_Address := To_Unbounded_String (DOM.Core.Elements.Get_Attribute (Next, Name => "AddressPULL"));
                Put_Line ("Found bridge addressPUB:  """ & To_String (Pub_Address) & """");
@@ -169,7 +169,7 @@ begin
    end if;
 
    --  First, search All_Enabled_Bridges for the TCP addresses to use, rather than hard-coding them in
-   --  package UxAS.Common.String_Constant.Lmcp_Network_Socket_Address
+   --  package UxAS.Common.String_Constant.LMCP_Network_Socket_Address
    --
    --  NOTE: We MUST do this before we launch the services since they will use the addresses in that package...
 
@@ -185,8 +185,8 @@ begin
       return;
    end if;
 
-   UxAS.Common.String_Constant.Lmcp_Network_Socket_Address.InProc_From_MessageHub := From_Msg_Hub;
-   UxAS.Common.String_Constant.Lmcp_Network_Socket_Address.InProc_To_MessageHub := To_Msg_Hub;
+   UxAS.Common.String_Constant.LMCP_Network_Socket_Address.InProc_From_MessageHub := From_Msg_Hub;
+   UxAS.Common.String_Constant.LMCP_Network_Socket_Address.InProc_To_MessageHub := To_Msg_Hub;
 
    --  Now launch the services specified in the config XML file
 

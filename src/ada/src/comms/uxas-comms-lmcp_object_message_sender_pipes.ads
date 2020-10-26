@@ -1,14 +1,14 @@
---  see OpenUxAS\src\Communications\LmcpObjectMessageSenderPipe.h
+--  see OpenUxAS\src\Communications\LMCPObjectMessageSenderPipe.h
 
 with AVTAS.LMCP.Object;
-with UxAS.Comms.Data;
 with UxAS.Comms.Data.Addressed.Attributed;
+with UxAS.Comms.Data;
 with UxAS.Comms.Transport.ZeroMQ_Sender.Addr_Attr_Msg_Senders;
 with ZMQ.Sockets;
 
+use UxAS.Comms.Data.Addressed.Attributed;
 use UxAS.Comms.Data;
 use UxAS.Comms.Transport.ZeroMQ_Sender.Addr_Attr_Msg_Senders;
-use UxAS.Comms.Data.Addressed.Attributed;
 
 package UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
 
@@ -63,32 +63,32 @@ package UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
       Is_Server      : Boolean);
 
    --   void
-   --   sendBroadcastMessage(std::unique_ptr<avtas::lmcp::Object> lmcpObject);
+   --   sendBroadcastMessage(std::unique_ptr<AVTAS::LMCP::Object> LMCPObject);
    procedure Send_Broadcast_Message
      (This    : in out LMCP_Object_Message_Sender_Pipe;
       Message : AVTAS.LMCP.Object.Object_Any);
 
    --   void
-   --   sendLimitedCastMessage(const std::string& castAddress, std::unique_ptr<avtas::lmcp::Object> lmcpObject);
+   --   sendLimitedCastMessage(const std::string& castAddress, std::unique_ptr<AVTAS::LMCP::Object> LMCPObject);
    procedure Send_LimitedCast_Message
      (This         : in out LMCP_Object_Message_Sender_Pipe;
       Cast_Address : String;
       Message      : AVTAS.LMCP.Object.Object_Any);
 
    --   void
-   --   sendSerializedMessage(std::unique_ptr<uxas::communications::data::AddressedAttributedMessage> serializedLmcpObject);
+   --   sendSerializedMessage(std::unique_ptr<UxAS::communications::data::AddressedAttributedMessage> serializedLMCPObject);
    procedure Send_Serialized_Message
      (This    : in out LMCP_Object_Message_Sender_Pipe;
       Message : Addressed_Attributed_Message_Ref);
 
    --   void
-   --   sendSharedBroadcastMessage(const std::shared_ptr<avtas::lmcp::Object>& lmcpObject);
+   --   sendSharedBroadcastMessage(const std::shared_ptr<AVTAS::LMCP::Object>& LMCPObject);
    procedure Send_Shared_Broadcast_Message
      (This    : in out LMCP_Object_Message_Sender_Pipe;
       Message : AVTAS.LMCP.Object.Object_Any);
 
    --   void
-   --   sendSharedLimitedCastMessage(const std::string& castAddress, const std::shared_ptr<avtas::lmcp::Object>& lmcpObject);
+   --   sendSharedLimitedCastMessage(const std::string& castAddress, const std::shared_ptr<AVTAS::LMCP::Object>& LMCPObject);
    procedure Send_Shared_LimitedCast_Message
      (This         : in out LMCP_Object_Message_Sender_Pipe;
       Cast_Address : String;
@@ -118,7 +118,7 @@ private
    type LMCP_Object_Message_Sender_Pipe is tagged limited record
       Entity_Id  : UInt32;
       Service_Id : UInt32;
-      --  std::unique_ptr<uxas::communications::transport::ZeroMqAddressedAttributedMessageSender> m_transportSender;
+      --  std::unique_ptr<UxAS::communications::transport::ZeroMqAddressedAttributedMessageSender> m_transportSender;
       Sender     : ZeroMq_Addressed_Attributed_Message_Sender_Ref;
    end record;
 

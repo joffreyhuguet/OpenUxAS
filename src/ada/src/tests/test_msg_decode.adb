@@ -1,11 +1,10 @@
-with ZMQ.Sockets;
-with ZMQ.Contexts;
-with ZMQ.Messages;
 with Ada.Text_IO;            use Ada.Text_IO;
-with AVTAS.LMCP.Types;       use AVTAS.LMCP.Types;
 with AVTAS.LMCP.ByteBuffers; use AVTAS.LMCP.ByteBuffers;
-
-with Avtas.Lmcp.Factory;
+with AVTAS.LMCP.Factory;
+with AVTAS.LMCP.Types;       use AVTAS.LMCP.Types;
+with ZMQ.Contexts;
+with ZMQ.messages;
+with ZMQ.Sockets;
 
 procedure Test_Msg_Decode is
    Ctx : ZMQ.Contexts.Context;
@@ -23,7 +22,7 @@ begin
 
    loop
       declare
-         ZmqMsg : ZMQ.Messages.Message;
+         ZmqMsg : ZMQ.messages.Message;
       begin
          ZmqMsg.Initialize (0);
          Buffer.Clear;
@@ -53,7 +52,7 @@ begin
                Put_Line ("wrong msgsize:" & MsgSize'Image);
                goto Continue;
             end if;
-            if not avtas.lmcp.factory.Validate (Buffer) then
+            if not AVTAS.LMCP.Factory.Validate (Buffer) then
                Put_Line ("checksum not valid");
                goto Continue;
             end if;

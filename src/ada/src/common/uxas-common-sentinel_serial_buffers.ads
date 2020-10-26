@@ -1,6 +1,6 @@
 with AVTAS.LMCP.Types;  use AVTAS.LMCP.Types;
 
-with Dynamic_Strings; use Dynamic_Strings;
+with Dynamic_Strings;   use Dynamic_Strings;
 
 package UxAS.Common.Sentinel_Serial_Buffers is
 
@@ -27,7 +27,7 @@ package UxAS.Common.Sentinel_Serial_Buffers is
 
    --  static std::string
    --  createSentinelizedString(const std::string& data);
-   function Create_Sentinelized_String (Data : String ) return String;
+   function Create_Sentinelized_String (Data : String) return String;
 
    --  Supports strings containing only ascii characters
    --  static uint32_t

@@ -189,25 +189,25 @@ package body UxAS.Comms.Data.Addressed.Attributed is
       if EndOfMessageAttributesDelimIndex = 0 then
          return;
       --  {
-      --      UXAS_LOG_ERROR(s_typeName(), "::parseAddressedAttributedMessageStringAndSetFields failed to parse message attribute string from delimited string ", delimitedString);
+      --      UxAS_LOG_ERROR(s_typeName(), "::parseAddressedAttributedMessageStringAndSetFields failed to parse message attribute string from delimited string ", delimitedString);
       --      m_isValid = false;
       --      return (m_isValid);
       --  }
       --  else if (endOfMessageAttributesDelimIndex == (delimitedString.length() - 1))
-      elsif EndOfMessageAttributesDelimIndex = Delimited_String'length then
+      elsif EndOfMessageAttributesDelimIndex = Delimited_String'Length then
       --  {
-      --      UXAS_LOG_ERROR(s_typeName(), "::parseAddressedAttributedMessageStringAndSetFields payload must be non-empty");
+      --      UxAS_LOG_ERROR(s_typeName(), "::parseAddressedAttributedMessageStringAndSetFields payload must be non-empty");
       --      m_isValid = false;
       --      return (m_isValid);
          return;
       --  }
       end if;
 
-      --  m_messageAttributes = uxas::stduxas::make_unique<MessageAttributes>();
+      --  m_messageAttributes = UxAS::stdUxAS::make_unique<MessageAttributes>();
       --  if (!m_messageAttributes->setAttributesFromDelimitedString(
       --      delimitedString.substr(endOfAddressDelimIndex + 1, endOfMessageAttributesDelimIndex - (endOfAddressDelimIndex + 1))))
       --  {
-      --      UXAS_LOG_ERROR(s_typeName(), "::setAddressAttributesAndPayload failed to initialize message attributes");
+      --      UxAS_LOG_ERROR(s_typeName(), "::setAddressAttributesAndPayload failed to initialize message attributes");
       --      m_isValid = false;
       --      return (m_isValid);
       --  }
@@ -224,7 +224,7 @@ package body UxAS.Comms.Data.Addressed.Attributed is
             To => This.Address);
 
       --  m_payload = delimitedString.substr(endOfMessageAttributesDelimIndex + 1, delimitedString.length() - (endOfMessageAttributesDelimIndex + 1));
-      Copy (Delimited_String (EndOfMessageAttributesDelimIndex + 1 .. Delimited_String'last),
+      Copy (Delimited_String (EndOfMessageAttributesDelimIndex + 1 .. Delimited_String'Last),
             To => This.Payload);
 
       Copy (Delimited_String, To => This.Content_String);

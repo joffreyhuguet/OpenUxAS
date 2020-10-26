@@ -1,8 +1,3 @@
-with Ada.Containers.Functional_Maps;
-with Ada.Containers.Functional_Vectors;
-with Common; use Common;
-with Ada.Containers; use Ada.Containers;
-
 generic
    type Element_Type is private;
 package Bounded_Stack with SPARK_Mode is

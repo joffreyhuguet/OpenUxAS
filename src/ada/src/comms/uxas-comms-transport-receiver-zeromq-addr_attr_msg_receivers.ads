@@ -1,7 +1,7 @@
 --  see OpenUxAS\src\Communications\ZeroMqAddressedAttributedMessageReceiver.h
 
-with UxAS.Comms.Data.Addressed.Attributed;  use  UxAS.Comms.Data.Addressed.Attributed;
 with UxAS.Common.Sentinel_Serial_Buffers;   use UxAS.Common.Sentinel_Serial_Buffers;
+with UxAS.Comms.Data.Addressed.Attributed;  use  UxAS.Comms.Data.Addressed.Attributed;
 
 with Ada.Containers.Formal_Doubly_Linked_Lists;
 

@@ -1,11 +1,11 @@
---  see OpenUxAS\src\Communications\LmcpObjectNetworkClientBase.h
+--  see OpenUxAS\src\Communications\LMCPObjectNetworkClientBase.h
 
+with AVTAS.LMCP.Object;                             use AVTAS.LMCP.Object;
 with DOM.Core;
-with AVTAS.LMCP.Object;  use AVTAS.LMCP.Object;
-with UxAS.Comms.Data.LMCP_Messages;                 use UxAS.Comms.Data.LMCP_Messages;
-with UxAS.Comms.LMCP_Object_Message_Sender_Pipes;   use UxAS.Comms.LMCP_Object_Message_Sender_Pipes;
-with UxAS.Comms.LMCP_Object_Message_Receiver_Pipes; use UxAS.Comms.LMCP_Object_Message_Receiver_Pipes;
 with UxAS.Comms.Data.Addressed.Attributed;          use UxAS.Comms.Data.Addressed.Attributed;
+with UxAS.Comms.Data.LMCP_Messages;                 use UxAS.Comms.Data.LMCP_Messages;
+with UxAS.Comms.LMCP_Object_Message_Receiver_Pipes; use UxAS.Comms.LMCP_Object_Message_Receiver_Pipes;
+with UxAS.Comms.LMCP_Object_Message_Sender_Pipes;   use UxAS.Comms.LMCP_Object_Message_Sender_Pipes;
 
 package UxAS.Comms.LMCP_Net_Client
 is
@@ -70,7 +70,7 @@ is
    --  @return address string to used to send a message to a specific service
    --  hosted by a particular UxAS entity.
    --
-   function Network_Client_Unicast_Address (Entity_Id : Uint32;  Network_Client_Id : Int64)
+   function Network_Client_Unicast_Address (Entity_Id : UInt32;  Network_Client_Id : Int64)
      return String;
 
    --   Multi-cast entity-based subscription address string
@@ -131,17 +131,17 @@ is
    --      getUniqueNetworkClientId()
    procedure Get_Unique_Network_Client_Id (Value : out Int64);
 
-   --  Type name for the LmcpObjectNetworkClientBase class
+   --  Type name for the LMCPObjectNetworkClientBase class
    --      static const std::string&
    --      s_typeName()
-   Type_Name : constant String := "LmcpObjectNetworkClientBase";
+   Type_Name : constant String := "LMCPObjectNetworkClientBase";
 
    --  protected: but made public for sake of subclasses outside the package hierarchy  -----------
    --
    --  To be overridden by subclasses
 
    --  The virtual configure method is invoked by the
-   --  LmcpObjectNetworkClientBase class after completing its
+   --  LMCPObjectNetworkClientBase class after completing its
    --  own configuration.
    --
    --  @param xmlNode XML node containing object configurations.
@@ -157,7 +157,7 @@ is
      is abstract;
 
    --  The virtual initialize method is invoked by the
-   --  LmcpObjectNetworkClientBase class after completing
+   --  LMCPObjectNetworkClientBase class after completing
    --  configurations and before startup.
    --
    --  @return true if initialization succeeds; false if initialization fails.
@@ -170,7 +170,7 @@ is
       Result : out Boolean);
 
    --  The virtual start method is invoked by the
-   --  LmcpObjectNetworkClientBase class after initialization and
+   --  LMCPObjectNetworkClientBase class after initialization and
    --  before starting its own thread.
    --
    --  @return true if start succeeds; false if start fails.
@@ -193,34 +193,34 @@ is
      (This   : in out LMCP_Object_Network_Client_Base;
       Result : out Boolean);
 
-   --  The virtual processReceivedLmcpMessage is
-   --  repeatedly invoked by the LmcpObjectNetworkClientBase class in an
+   --  The virtual processReceivedLMCPMessage is
+   --  repeatedly invoked by the LMCPObjectNetworkClientBase class in an
    --  infinite loop until termination.
    --
-   --  @param receivedLmcpObject received LMCP object.
+   --  @param receivedLMCPObject received LMCP object.
    --  @return true if object is to terminate; false if object is to continue processing.
    --
    --      virtual
    --      bool
-   --      processReceivedLmcpMessage
-   --         (std::unique_ptr<uxas::communications::data::LmcpMessage> receivedLmcpMessage) { return (false); };
+   --      processReceivedLMCPMessage
+   --         (std::unique_ptr<UxAS::communications::data::LMCPMessage> receivedLMCPMessage) { return (false); };
    procedure Process_Received_LMCP_Message
      (This             : in out LMCP_Object_Network_Client_Base;
       Received_Message : not null Any_LMCP_Message;
       Should_Terminate : out Boolean);
 
-   --  The virtual processReceivedSerializedLmcpMessage is
-   --  repeatedly invoked by the LmcpObjectNetworkClientBase class in an
+   --  The virtual processReceivedSerializedLMCPMessage is
+   --  repeatedly invoked by the LMCPObjectNetworkClientBase class in an
    --  infinite loop until termination. The payload of the AddressedAttributedMessage
    --  is a serialized LMCP object.
    --
-   --  @param receivedSerializedLmcpObject received AddressedAttributedMessage object with serialized LMCP object payload.
+   --  @param receivedSerializedLMCPObject received AddressedAttributedMessage object with serialized LMCP object payload.
    --  @return true if object is to terminate; false if object is to continue processing.
    --
    --      virtual
    --      bool
-   --      processReceivedSerializedLmcpMessage
-   --        (std::unique_ptr<uxas::communications::data::AddressedAttributedMessage> receivedSerializedLmcpMessage) { return (false); };
+   --      processReceivedSerializedLMCPMessage
+   --        (std::unique_ptr<UxAS::communications::data::AddressedAttributedMessage> receivedSerializedLMCPMessage) { return (false); };
    procedure Process_Received_Serialized_LMCP_Message
      (This             : in out LMCP_Object_Network_Client_Base;
       Received_Message : not null Any_Addressed_Attributed_Message;
@@ -230,7 +230,7 @@ is
 
    --  The configureNetworkClient method must be invoked
    --  before calling the initializeAndStart
-   --  method.  It performs LmcpObjectNetworkClientBase-specific configuration
+   --  method.  It performs LMCPObjectNetworkClientBase-specific configuration
    --  and invokes the configure virtual method.
    --
    --  @param subclassTypeName type name of the inheriting class.
@@ -251,10 +251,10 @@ is
    --  The initializeAndStart routine must be invoked
    --  after calling the configureNetworkClient method.
    --  It performs the following steps:
-   --     * LmcpObjectNetworkClientBase-specific initialization
+   --     * LMCPObjectNetworkClientBase-specific initialization
    --     * inheriting class initialization (calls initialize virtual method)
    --     * inheriting class startup (calls start virtual method)
-   --     * LmcpObjectNetworkClientBase-specific startup
+   --     * LMCPObjectNetworkClientBase-specific startup
    --
    --  @return true if all initialization and startup succeeds; false if initialization or startup fails.
    --
@@ -304,14 +304,14 @@ is
      (This    : in out LMCP_Object_Network_Client_Base;
       Success : out Boolean);
 
-   --  The sendLmcpObjectLimitedCastMessage method can be
+   --  The sendLMCPObjectLimitedCastMessage method can be
    --  invoked to send a uni-cast or multi-cast LMCP object message to the LMCP network.
    --
    --  @param castAddress message publish address
-   --  @param lmcpObject LMCP object to be uni-casted/multi-casted.
+   --  @param LMCPObject LMCP object to be uni-casted/multi-casted.
    --
    --      void
-   --      sendLmcpObjectLimitedCastMessage(const std::string& castAddress, std::unique_ptr<avtas::lmcp::Object> lmcpObject);
+   --      sendLMCPObjectLimitedCastMessage(const std::string& castAddress, std::unique_ptr<AVTAS::LMCP::Object> LMCPObject);
    procedure Send_LMCP_Object_Limited_Cast_Message
      (This        : in out LMCP_Object_Network_Client_Base;
       CastAddress : String;
@@ -419,13 +419,13 @@ private
       --      std::unique_ptr<std::thread> m_networkClientThread;
       Network_Client_Thread : Client_Thread_Reference;
 
-      --      std::set<std::string> m_preStartLmcpSubscriptionAddresses;
+      --      std::set<std::string> m_preStartLMCPSubscriptionAddresses;
       Pre_Start_LMCP_Subscription_Addresses : Subscription_Address_Set;
 
-      --      uxas::communications::LmcpObjectMessageReceiverPipe m_lmcpObjectMessageReceiverPipe;
+      --      UxAS::communications::LMCPObjectMessageReceiverPipe m_LMCPObjectMessageReceiverPipe;
       Message_Receiver_Pipe : LMCP_Object_Message_Receiver_Pipe;
 
-      --      uxas::communications::LmcpObjectMessageSenderPipe m_lmcpObjectMessageSenderPipe;
+      --      UxAS::communications::LMCPObjectMessageSenderPipe m_LMCPObjectMessageSenderPipe;
       Message_Sender_Pipe : LMCP_Object_Message_Sender_Pipe;
 
       --   Multi-cast group address that is subscribed to and included in sent messages
@@ -453,51 +453,51 @@ private
       Subclass_Termination_Attempt_Period : Duration := 0.5;
    end record;
 
-   --  The sendLmcpObjectBroadcastMessage method can be invoked to broadcast a
+   --  The sendLMCPObjectBroadcastMessage method can be invoked to broadcast a
    --  LMCP object message on the LMCP network.
    --
-   --  @param lmcpObject LMCP object to be broadcasted. The message publish
+   --  @param LMCPObject LMCP object to be broadcasted. The message publish
    --  address is derived from the full LMCP object name.
    --
    --      void
-   --      sendLmcpObjectBroadcastMessage(std::unique_ptr<avtas::lmcp::Object> lmcpObject);
+   --      sendLMCPObjectBroadcastMessage(std::unique_ptr<AVTAS::LMCP::Object> LMCPObject);
    procedure Send_LMCP_Object_Broadcast_Message
      (This : in out LMCP_Object_Network_Client_Base;
       Msg  : not null AVTAS.LMCP.Object.Object_Any);
 
-   --  The sendSerializedLmcpObjectMessage method can be invoked to
+   --  The sendSerializedLMCPObjectMessage method can be invoked to
    --  send a AddressedAttributedMessage to the LMCP network. The
    --  AddressedAttributedMessage payload must be a serialized LMCP object string.
    --
-   --  @param serializedLmcpObject LMCP object to be sent (uni-cast/multi-cast/broadcast).
+   --  @param serializedLMCPObject LMCP object to be sent (uni-cast/multi-cast/broadcast).
    --
    --      void
-   --      sendSerializedLmcpObjectMessage
-   --          (std::unique_ptr<uxas::communications::data::AddressedAttributedMessage> serializedLmcpObject);
+   --      sendSerializedLMCPObjectMessage
+   --          (std::unique_ptr<UxAS::communications::data::AddressedAttributedMessage> serializedLMCPObject);
    procedure Send_Serialized_LMCP_Object_Message
      (This : in out LMCP_Object_Network_Client_Base;
       Msg  : not null Addressed_Attributed_Message_Ref);
 
-   --  The sendSharedLmcpObjectBroadcastMessage method can be invoked to broadcast
+   --  The sendSharedLMCPObjectBroadcastMessage method can be invoked to broadcast
    --  a LMCP object message on the LMCP network.
    --
-   --       @param lmcpObject LMCP object to be broadcasted. The message publish
+   --       @param LMCPObject LMCP object to be broadcasted. The message publish
    --       address is derived from the full LMCP object name.
    --
    --      void
-   --      sendSharedLmcpObjectBroadcastMessage(const std::shared_ptr<avtas::lmcp::Object>& lmcpObject);
+   --      sendSharedLMCPObjectBroadcastMessage(const std::shared_ptr<AVTAS::LMCP::Object>& LMCPObject);
    procedure Send_Shared_LMCP_Object_Broadcast_Message
      (This : in out LMCP_Object_Network_Client_Base;
       Msg  : not null AVTAS.LMCP.Object.Object_Any);
 
-   --  The sendSharedLmcpObjectLimitedCastMessage method can be invoked to send a
+   --  The sendSharedLMCPObjectLimitedCastMessage method can be invoked to send a
    --  uni-cast or multi-cast LMCP object message to the LMCP network.
    --
    --       @param castAddress message publish address
-   --       @param lmcpObject LMCP object to be uni-casted/multi-casted.
+   --       @param LMCPObject LMCP object to be uni-casted/multi-casted.
    --
    --      void
-   --      sendSharedLmcpObjectLimitedCastMessage(const std::string& castAddress, const std::shared_ptr<avtas::lmcp::Object>& lmcpObject);
+   --      sendSharedLMCPObjectLimitedCastMessage(const std::string& castAddress, const std::shared_ptr<AVTAS::LMCP::Object>& LMCPObject);
    procedure Send_Shared_LMCP_Object_Limited_Cast_Message
      (This         : in out LMCP_Object_Network_Client_Base;
       Cast_Address : String;

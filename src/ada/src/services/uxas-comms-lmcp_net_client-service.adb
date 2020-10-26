@@ -1,11 +1,11 @@
 with Ada.Containers.Formal_Hashed_Maps;
-with Ada.Strings.Hash;
 with Ada.Directories;
+with Ada.Strings.Hash;
 
 with DOM.Core.Documents;
 with DOM.Core.Elements;
-with Input_Sources.Strings;
 with DOM.Readers;
+with Input_Sources.Strings;
 with Sax.Encodings;
 
 with UxAS.Common.String_Constant;

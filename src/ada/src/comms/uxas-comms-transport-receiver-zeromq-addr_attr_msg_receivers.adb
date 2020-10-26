@@ -1,5 +1,5 @@
-with ZMQ.Messages;
 with UxAS.Common.Configuration_Manager;
+with ZMQ.Messages;
 
 package body UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers is
 
@@ -20,7 +20,7 @@ package body UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers is
          Entity_Id            => Entity_Id,
          Service_Id           => Service_Id,
          Socket_Configuration => Socket_Configuration);
-      This.Is_Tcp_Stream := Socket_Configuration.Zmq_Socket_Type = Stream;
+      This.Is_Tcp_Stream := Socket_Configuration.Zmq_Socket_Type = STREAM;
    end Initialize;
 
    use Message_Lists;
@@ -37,7 +37,7 @@ package body UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers is
      (This : in out ZeroMq_Addressed_Attributed_Message_Receiver;
       Msg  : out Addressed_Attributed_Message_Ref)
    is
-      --  std::unique_ptr<uxas::communications::data::AddressedAttributedMessage> nextMsg;
+      --  std::unique_ptr<UxAS::communications::data::AddressedAttributedMessage> nextMsg;
    begin
       --  just send the next message if one is available
       if not Is_Empty (This.Received_Messages) then
@@ -58,12 +58,12 @@ package body UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers is
       --     { *m_zmqSocket, 0, ZMQ_POLLIN, 0},
       --  };
       --
-      --  zmq::poll(&pollItems[0], 1, uxas::common::ConfigurationManager::getZeroMqReceiveSocketPollWaitTime_ms()); // wait time units are milliseconds
+      --  zmq::poll(&pollItems[0], 1, UxAS::common::ConfigurationManager::getZeroMqReceiveSocketPollWaitTime_ms()); // wait time units are milliseconds
       --
       --  if (pollItems[0].revents & ZMQ_POLLIN)  // polling detected received data
       --  {
 
-      if This.Is_TCP_Stream then
+      if This.Is_Tcp_Stream then
          raise Program_Error with "Get_Next_Message is not implemented for STREAM";
       else  -- not a stream socket
          if UxAS.Common.Configuration_Manager.Is_ZeroMq_Multipart_Message then
@@ -73,8 +73,8 @@ package body UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers is
                Recvd_Msg : Addressed_Attributed_Message_Ref;
                Success   : Boolean;
             begin
-               --  std::unique_ptr<uxas::communications::data::AddressedAttributedMessage> recvdSinglepartAddAttMsg
-               --          = uxas::stduxas::make_unique<uxas::communications::data::AddressedAttributedMessage>();
+               --  std::unique_ptr<UxAS::communications::data::AddressedAttributedMessage> recvdSinglepartAddAttMsg
+               --          = UxAS::stdUxAS::make_unique<UxAS::communications::data::AddressedAttributedMessage>();
                Recvd_Msg := new Addressed_Attributed_Message;
 
                --  if (recvdSinglepartAddAttMsg->setAddressAttributesAndPayloadFromDelimitedString(n_ZMQ::s_recv(*m_zmqSocket)))

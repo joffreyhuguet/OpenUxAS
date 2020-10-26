@@ -14,6 +14,8 @@ package UxAS.Common.String_Constant is
    EntityType                  : constant String := "EntityType";
    FilterType                  : constant String := "FilterType";
    GapTime_Ms                  : constant String := "GapTime_ms";
+   GossipBind                  : constant String := "GossipBind";
+   GossipEndpoint              : constant String := "GossipEndpoint";
    IsDataTimestamp             : constant String := "isDataTimestamp";
    IsLoggingThreadId           : constant String := "isLoggingThreadId";
    LogFileMessageCountLimit    : constant String := "LogFileMessageCountLimit";
@@ -21,9 +23,6 @@ package UxAS.Common.String_Constant is
    MessageGroup                : constant String := "MessageGroup";
    MessageType                 : constant String := "MessageType";
    NetworkDevice               : constant String := "NetworkDevice";
-   ZyreEndpoint                : constant String := "ZyreEndpoint";
-   GossipEndpoint              : constant String := "GossipEndpoint";
-   GossipBind                  : constant String := "GossipBind";
    ReceiveEntityId             : constant String := "ReceiveEntityId";
    RunDuration_S               : constant String := "RunDuration_s";
    SendAddress                 : constant String := "SendAddress";
@@ -33,18 +32,19 @@ package UxAS.Common.String_Constant is
    SendSourceEntityId          : constant String := "SendSourceEntityId";
    SendSourceGroup             : constant String := "SendSourceGroup";
    SendSourceServiceId         : constant String := "SendSourceServiceId";
-   SerialPortAddress           : constant String := "SerialPortAddress";
    SerialPollWaitTime_Us       : constant String := "SerialPollWaitTime_us";
+   SerialPortAddress           : constant String := "SerialPortAddress";
    SerialTimeout_Ms            : constant String := "SerialTimeout_ms";
    Server                      : constant String := "Server";
    Service                     : constant String := "Service";
    StartDelay_Ms               : constant String := "StartDelay_ms";
+   SType                       : constant String := "Type";
    SubscribeToExternalMessage  : constant String := "SubscribeToExternalMessage";
    SubscribeToMessage          : constant String := "SubscribeToMessage";
    TcpAddress                  : constant String := "TcpAddress";
    TransformReceivedMessage    : constant String := "TransformReceivedMessage";
-   SType                       : constant String := "Type";
    UAV                         : constant String := "UAV";
    UxAS                        : constant String := "UxAS";
+   ZyreEndpoint                : constant String := "ZyreEndpoint";
 
 end UxAS.Common.String_Constant;

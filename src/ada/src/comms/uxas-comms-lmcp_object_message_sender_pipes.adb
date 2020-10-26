@@ -1,15 +1,15 @@
---  see OpenUxAS\src\Communications\LmcpObjectMessageSenderPipe.cpp
+--  see OpenUxAS\src\Communications\LMCPObjectMessageSenderPipe.cpp
 
-with UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;
-with UxAS.Common.String_Constant.Lmcp_Network_Socket_Address;
-use  UxAS.Common.String_Constant.Lmcp_Network_Socket_Address;
 with UxAS.Common.String_Constant.Content_Type;
+with UxAS.Common.String_Constant.LMCP_Network_Socket_Address;
+use  UxAS.Common.String_Constant.LMCP_Network_Socket_Address;
 with UxAS.Comms.Transport.Network_Name;
+with UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;
 
 with AVTAS.LMCP.Factory;
 with AVTAS.LMCP.ByteBuffers;  use AVTAS.LMCP.ByteBuffers;
 
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
 
 package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
 
@@ -25,7 +25,7 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
    is
    begin
       --  initializeZmqSocket(sourceGroup, entityId, serviceId, ZMQ_PUB,
-      --                      uxas::common::LmcpNetworkSocketAddress::strGetInProc_FromMessageHub(), true);
+      --                      UxAS::common::LMCPNetworkSocketAddress::strGetInProc_FromMessageHub(), true);
       This.Initialize_Zmq_Socket
         (Source_Group   => Source_Group,
          Entity_Id      => Entity_Id,
@@ -93,7 +93,7 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
    is
    begin
       --  initializeZmqSocket(sourceGroup, entityId, serviceId, ZMQ_PUSH,
-      --                      uxas::common::LmcpNetworkSocketAddress::strGetInProc_ToMessageHub(), false);
+      --                      UxAS::common::LMCPNetworkSocketAddress::strGetInProc_ToMessageHub(), false);
       This.Initialize_Zmq_Socket
         (Source_Group   => Source_Group,
          Entity_Id      => Entity_Id,
@@ -135,8 +135,8 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
       Message : AVTAS.LMCP.Object.Object_Any)
    is
    begin
-      --  std::string fullLmcpObjectTypeName = lmcpObject->getFullLmcpTypeName();
-      --  sendLimitedCastMessage(fullLmcpObjectTypeName, std::move(lmcpObject));
+      --  std::string fullLMCPObjectTypeName = LMCPObject->getFullLMCPTypeName();
+      --  sendLimitedCastMessage(fullLMCPObjectTypeName, std::move(LMCPObject));
       This.Send_LimitedCast_Message (Message.getFullLmcpTypeName, Message);
    end Send_Broadcast_Message;
 
@@ -145,25 +145,25 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
    ------------------------------
 
    --   void
-   --   sendLimitedCastMessage(const std::string& castAddress, std::unique_ptr<avtas::lmcp::Object> lmcpObject);
+   --   sendLimitedCastMessage(const std::string& castAddress, std::unique_ptr<AVTAS::LMCP::Object> LMCPObject);
    procedure Send_LimitedCast_Message
      (This         : in out LMCP_Object_Message_Sender_Pipe;
       Cast_Address : String;
       Message      : AVTAS.LMCP.Object.Object_Any)
    is
-      --  avtas::lmcp::ByteBuffer* lmcpByteBuffer = avtas::lmcp::Factory::packMessage(lmcpObject.get(), true);
-      Buffer  : constant ByteBuffer := AVTAS.LMCP.Factory.PackMessage (Message, EnableChecksum => True);
-      --  std::string serializedPayload = std::string(reinterpret_cast<char*>(lmcpByteBuffer->array()), lmcpByteBuffer->capacity());
+      --  AVTAS::LMCP::ByteBuffer* LMCPByteBuffer = AVTAS::LMCP::Factory::packMessage(LMCPObject.get(), true);
+      Buffer  : constant ByteBuffer := AVTAS.LMCP.Factory.packMessage (Message, enableChecksum => True);
+      --  std::string serializedPayload = std::string(reinterpret_cast<char*>(LMCPByteBuffer->array()), LMCPByteBuffer->capacity());
       Payload : constant String := Buffer.Raw_Bytes;
    begin
       --  m_transportSender->sendMessage
       --   (castAddress,
-      --    uxas::common::ContentType::lmcp(),
-      --    lmcpObject->getFullLmcpTypeName(),
+      --    UxAS::common::ContentType::LMCP(),
+      --    LMCPObject->getFullLMCPTypeName(),
       --    std::move(serializedPayload));
       This.Sender.Send_Message
         (Address      => Cast_Address,
-         Content_Type => UxAS.Common.String_Constant.Content_Type.Lmcp,
+         Content_Type => UxAS.Common.String_Constant.Content_Type.LMCP,
          Descriptor   => Message.getFullLmcpTypeName,
          Payload      => Payload);
    end Send_LimitedCast_Message;
@@ -177,7 +177,7 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
       Message : Addressed_Attributed_Message_Ref)
    is
    begin
-      --  m_transportSender->sendAddressedAttributedMessage(std::move(serializedLmcpObject));
+      --  m_transportSender->sendAddressedAttributedMessage(std::move(serializedLMCPObject));
       This.Sender.Send_Addressed_Attributed_Message (Message);
    end Send_Serialized_Message;
 
@@ -190,7 +190,7 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
       Message : AVTAS.LMCP.Object.Object_Any)
    is
    begin
-      --  sendSharedLimitedCastMessage(lmcpObject->getFullLmcpTypeName(), lmcpObject);
+      --  sendSharedLimitedCastMessage(LMCPObject->getFullLMCPTypeName(), LMCPObject);
       This.Send_Shared_LimitedCast_Message (Message.getFullLmcpTypeName, Message);
    end Send_Shared_Broadcast_Message;
 
@@ -203,9 +203,9 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
       Cast_Address : String;
       Message      : AVTAS.LMCP.Object.Object_Any)
    is
-      --  avtas::lmcp::ByteBuffer* lmcpByteBuffer = avtas::lmcp::Factory::packMessage(lmcpObject.get(), true);
-      Buffer  : constant ByteBuffer := AVTAS.LMCP.Factory.PackMessage (Message, EnableChecksum => True);
-      --  std::string serializedPayload = std::string(reinterpret_cast<char*>(lmcpByteBuffer->array()), lmcpByteBuffer->capacity());
+      --  AVTAS::LMCP::ByteBuffer* LMCPByteBuffer = AVTAS::LMCP::Factory::packMessage(LMCPObject.get(), true);
+      Buffer  : constant ByteBuffer := AVTAS.LMCP.Factory.packMessage (Message, enableChecksum => True);
+      --  std::string serializedPayload = std::string(reinterpret_cast<char*>(LMCPByteBuffer->array()), LMCPByteBuffer->capacity());
       Payload : constant String := Buffer.Raw_Bytes;
    begin
       --  Note: this body is identical to the body of Send_LimitedCast_Message, per the C++ implementation
@@ -213,12 +213,12 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
 
       --  m_transportSender->sendMessage
       --   (castAddress,
-      --    uxas::common::ContentType::lmcp(),
-      --    lmcpObject->getFullLmcpTypeName(),
+      --    UxAS::common::ContentType::LMCP(),
+      --    LMCPObject->getFullLMCPTypeName(),
       --    std::move(serializedPayload));
       This.Sender.Send_Message
         (Address      => Cast_Address,
-         Content_Type => UxAS.Common.String_Constant.Content_Type.Lmcp,
+         Content_Type => UxAS.Common.String_Constant.Content_Type.LMCP,
          Descriptor   => Message.getFullLmcpTypeName,
          Payload      => Payload);
    end Send_Shared_LimitedCast_Message;
@@ -283,23 +283,23 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
       --  int32_t zmqhighWaterMark{100000};
       Zmq_High_Water_Mark : constant := 100_000;
 
-      zmqLmcpNetworkSendSocket : ZeroMq_Socket_Configuration;
+      zmqLMCPNetworkSendSocket : ZeroMq_Socket_Configuration;
    begin
       --  m_entityId = entityId;
       --  m_serviceId = serviceId;
       This.Entity_Id := Entity_Id;
       This.Service_Id := Service_Id;
 
-      --  uxas::communications::transport::ZeroMqSocketConfiguration
-      --  zmqLmcpNetworkSendSocket(uxas::communications::transport::NETWORK_NAME::zmqLmcpNetwork(),
+      --  UxAS::communications::transport::ZeroMqSocketConfiguration
+      --  zmqLMCPNetworkSendSocket(UxAS::communications::transport::NETWORK_NAME::zmqLMCPNetwork(),
       --                           socketAddress,
       --                           zmqSocketType,
       --                           isServer,
       --                           false,
       --                           zmqhighWaterMark,
       --                           zmqhighWaterMark);
-      ZmqLmcpNetworkSendSocket := Make
-        (Network_Name            => UxAS.Comms.Transport.Network_Name.ZmqLmcpNetwork,
+      zmqLMCPNetworkSendSocket := Make
+        (Network_Name            => UxAS.Comms.Transport.Network_Name.ZmqLMCPNetwork,
          Socket_Address          => Socket_Address,
          Is_Receive              => False,
          Zmq_Socket_Type         => Zmq_SocketType,
@@ -308,18 +308,17 @@ package body UxAS.Comms.LMCP_Object_Message_Sender_Pipes is
          Receive_High_Water_Mark => Zmq_High_Water_Mark,
          Send_High_Water_Mark    => Zmq_High_Water_Mark);
 
-
-      --  m_transportSender = uxas::stduxas::make_unique<uxas::communications::transport::ZeroMqAddressedAttributedMessageSender>(
+      --  m_transportSender = UxAS::stdUxAS::make_unique<UxAS::communications::transport::ZeroMqAddressedAttributedMessageSender>(
       --          (zmqSocketType == ZMQ_STREAM ? true : false));
       This.Sender := new ZeroMq_Addressed_Attributed_Message_Sender (Zmq_SocketType);
       --  we just pass the actual socket type and let the sender do the test
 
-      --  m_transportSender->initialize(sourceGroup, m_entityId, m_serviceId, zmqLmcpNetworkSendSocket);
+      --  m_transportSender->initialize(sourceGroup, m_entityId, m_serviceId, zmqLMCPNetworkSendSocket);
       This.Sender.Initialize
         (Source_Group => Source_Group,
          Entity_Id    => Entity_Id,
          Service_Id   => Service_Id,
-         SocketConfig => zmqLmcpNetworkSendSocket);
+         SocketConfig => zmqLMCPNetworkSendSocket);
    end Initialize_Zmq_Socket;
 
 end UxAS.Comms.LMCP_Object_Message_Sender_Pipes;

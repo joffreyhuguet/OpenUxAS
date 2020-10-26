@@ -1,15 +1,15 @@
---  see C:\AFRL_mentorship\OpenUxAS\src\Utilities\UxAS_ConfigurationManager.cpp
+--  see C:\afrl_mentorship\OpenUxAS\src\Utilities\UxAS_ConfigurationManager.cpp
 
-with String_Utils;  use String_Utils;
+with String_Utils;      use String_Utils;
 with Ada.Strings.Fixed;
 
-with Input_Sources.Strings;
-with Input_Sources.File;
-with DOM.Readers;
 with DOM.Core.Documents;
-with DOM.Core.Nodes;
-with Sax.Encodings;
 with DOM.Core.Elements;
+with DOM.Core.Nodes;
+with DOM.Readers;
+with Input_Sources.File;
+with Input_Sources.Strings;
+with Sax.Encodings;
 
 with UxAS.Common.String_Constant;
 
@@ -105,13 +105,13 @@ package body UxAS.Common.Configuration_Manager is
       UxAS_Node := DOM.Core.Nodes.Append_Child (Doc, New_Child => UxAS_Node);
 
       DOM.Core.Elements.Set_Attribute (UxAS_Node, Name => "FormatVersion",            Value => "1.0");
-      DOM.Core.Elements.Set_Attribute (UxAS_Node, Name => String_Constant.EntityId,   Value => To_String (This.Get_Entity_Id));
+      DOM.Core.Elements.Set_Attribute (UxAS_Node, Name => String_Constant.EntityID,   Value => To_String (This.Get_Entity_Id));
       DOM.Core.Elements.Set_Attribute (UxAS_Node, Name => String_Constant.EntityType, Value => This.Get_Entity_Type);
 
       for K in Natural range 1 .. DOM.Core.Nodes.Length (Matching_Children) loop
          Unused := Append_Child
-           (UXAS_Node,
-            New_Child => DOM.Core.Documents.Import_Node (Doc, Item (Matching_Children, K-1), Deep => True));
+           (UxAS_Node,
+            New_Child => DOM.Core.Documents.Import_Node (Doc, Item (Matching_Children, K - 1), Deep => True));
       end loop;
       DOM.Core.Free (Matching_Children);
    end Populate_Enabled_Components;
@@ -244,7 +244,7 @@ package body UxAS.Common.Configuration_Manager is
 
       Children          : constant Node_List := DOM.Core.Documents.Get_Elements_By_Tag_Name (Root, String_Constant.UxAS);
       EntityInfoXmlNode : constant Node := DOM.Core.Nodes.Item (Children, Index => 0);
-    begin
+   begin
       if EntityInfoXmlNode /= null then
          declare
             Str : constant DOM_String := Get_Attribute (EntityInfoXmlNode, Name => String_Constant.EntityID);

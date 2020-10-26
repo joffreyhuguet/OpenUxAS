@@ -3,10 +3,10 @@ with ZMQ.Sockets;
 with Ada.Text_IO;  use Ada.Text_IO;
 
 with AVTAS.LMCP.Types;                                              use AVTAS.LMCP.Types;
-with UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;             use UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;
 with UxAS.Comms.Data.Addressed.Attributed;                          use UxAS.Comms.Data.Addressed.Attributed;
-with UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers ; use UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers ;
 with UxAS.Comms.Data;                                               use UxAS.Comms.Data;
+with UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers ; use UxAS.Comms.Transport.Receiver.ZeroMQ.Addr_Attr_Msg_Receivers ;
+with UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;             use UxAS.Comms.Transport.ZeroMQ_Socket_Configurations;
 
 use UxAS.Comms.Transport.Receiver;
 

@@ -1,5 +1,5 @@
 package UxAS.Comms.Transport.Network_Name is
-   ZmqExternalLmcpTcpNetwork : constant String := "zmqExternalLmcpTcpNetwork";
-   ZmqLmcpNetwork            : constant String := "zmqLmcpNetwork";
+   ZmqExternalLMCPTcpNetwork : constant String := "zmqExternalLMCPTcpNetwork";
+   ZmqLMCPNetwork            : constant String := "zmqLMCPNetwork";
    ZmqStringNetwork          : constant String := "zmqStringNetwork";
 end UxAS.Comms.Transport.Network_Name;

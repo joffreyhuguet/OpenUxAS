@@ -1,7 +1,7 @@
 --  see OpenUxAS\src\Communications\ZeroMqAddressedAttributedMessageSender.h
 
-with ZMQ.Sockets;
 with UxAS.Comms.Data.Addressed.Attributed; use UxAS.Comms.Data.Addressed.Attributed;
+with ZMQ.Sockets;
 
 package UxAS.Comms.Transport.ZeroMQ_Sender.Addr_Attr_Msg_Senders is
 
@@ -23,7 +23,7 @@ package UxAS.Comms.Transport.ZeroMQ_Sender.Addr_Attr_Msg_Senders is
    --  TODO: add preconditions on string lengths, as done elsewhere
 
    --  void
-   --  sendAddressedAttributedMessage(std::unique_ptr<uxas::communications::data::AddressedAttributedMessage> message);
+   --  sendAddressedAttributedMessage(std::unique_ptr<UxAS::communications::data::AddressedAttributedMessage> message);
    procedure Send_Addressed_Attributed_Message
      (This    : in out ZeroMq_Addressed_Attributed_Message_Sender;
       Message : Addressed_Attributed_Message_Ref);
