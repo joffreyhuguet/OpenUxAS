@@ -22,31 +22,25 @@
   </transf>
   </goal>
   <goal name="def&#39;vc.3" expl="precondition" proved="true">
-  <proof prover="0" timelimit="60" memlimit="2000"><result status="valid" steps="1105"/></proof>
-  <transf name="trivial_true" proved="true" >
-  </transf>
+  <proof prover="0"><result status="valid" steps="1105"/></proof>
   </goal>
   <goal name="def&#39;vc.4" expl="precondition" proved="true">
-  <proof prover="0" timelimit="60" memlimit="2000"><result status="valid" steps="1239"/></proof>
-  <transf name="trivial_true" proved="true" >
-  </transf>
+  <proof prover="0"><result status="valid" steps="1239"/></proof>
   </goal>
   <goal name="def&#39;vc.5" expl="precondition" proved="true">
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.6" expl="precondition" proved="true">
-  <proof prover="0" obsolete="true"><result status="valid" steps="1239"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.7" expl="precondition" proved="true">
-  <proof prover="0" obsolete="true"><result status="valid" steps="1239"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.8" expl="precondition" proved="true">
-  <proof prover="0" timelimit="60" memlimit="2000"><result status="valid" steps="20"/></proof>
+  <proof prover="0"><result status="valid" steps="20"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
@@ -55,7 +49,6 @@
   </transf>
   </goal>
   <goal name="def&#39;vc.10" expl="precondition" proved="true">
-  <proof prover="0" timelimit="5" obsolete="true"><result status="valid" steps="20"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
@@ -64,12 +57,10 @@
   </transf>
   </goal>
   <goal name="def&#39;vc.12" expl="precondition" proved="true">
-  <proof prover="0" timelimit="5" obsolete="true"><result status="valid" steps="1105"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.13" expl="postcondition" proved="true">
-  <proof prover="0" obsolete="true"><result status="valid" steps="1105"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
@@ -82,25 +73,25 @@
   </transf>
   </goal>
   <goal name="def&#39;vc.16" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" steps="20"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.17" expl="postcondition" proved="true">
-  <proof prover="0" timelimit="5" obsolete="true"><result status="valid" steps="1239"/></proof>
+  <proof prover="0" obsolete="true"><result status="valid" steps="680"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.18" expl="precondition" proved="true">
-  <proof prover="0" timelimit="0" steplimit="1216" memlimit="0" obsolete="true"><result status="valid" steps="1105"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.19" expl="postcondition" proved="true">
-  <proof prover="0" timelimit="0" steplimit="1363" memlimit="0" obsolete="true"><result status="valid" steps="1239"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
   <goal name="def&#39;vc.20" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" steps="571"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
@@ -110,7 +101,6 @@
   </transf>
   </goal>
   <goal name="def&#39;vc.22" expl="precondition" proved="true">
-  <proof prover="0" obsolete="true"><result status="valid" steps="20"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
@@ -119,7 +109,6 @@
   </transf>
   </goal>
   <goal name="def&#39;vc.24" expl="precondition" proved="true">
-  <proof prover="0" obsolete="true"><result status="valid" steps="1105"/></proof>
   <transf name="trivial_true" proved="true" >
   </transf>
   </goal>
