@@ -11,6 +11,8 @@ with AFRL.Impact.ImpactAutomationRequest;             use AFRL.Impact.ImpactAuto
 with AVTAS.LMCP.Object;
 with UxAS.Messages.lmcptask.AssignmentCostMatrix;     use UxAS.Messages.lmcptask.AssignmentCostMatrix;
 with UxAS.Messages.lmcptask.TaskAutomationRequest;    use UxAS.Messages.lmcptask.TaskAutomationRequest;
+with UxAS.Messages.lmcptask.TaskAssignmentSummary;    use UxAS.Messages.lmcptask.TaskAssignmentSummary;
+with UxAS.Messages.lmcptask.TaskAssignment;           use UxAS.Messages.lmcptask.TaskAssignment;
 with UxAS.Messages.lmcptask.TaskPlanOptions;          use UxAS.Messages.lmcptask.TaskPlanOptions;
 with UxAS.Messages.lmcptask.UniqueAutomationRequest;  use UxAS.Messages.lmcptask.UniqueAutomationRequest;
 with UxAS.Messages.lmcptask.UniqueAutomationResponse; use UxAS.Messages.lmcptask.UniqueAutomationResponse;
@@ -59,5 +61,11 @@ package LMCP_Message_Conversions is
    function As_MissionCommand_Message (Msg : not null MissionCommand_Acc) return LMCP_Messages.MissionCommand;
 
    function As_Object_Any (Msg : LMCP_Messages.Message_Root'Class) return AVTAS.LMCP.Object.Object_Any;
+
+   function As_TaskAssignmentSummary_Message (Msg : not null TaskAssignmentSummary_Any) return LMCP_Messages.TaskAssignmentSummary;
+
+   function As_TaskAssignment_Message (Msg : TaskAssignment_Acc) return LMCP_Messages.TaskAssignment;
+
+   function As_Location3D_Any (Msg : LMCP_Messages.Location3D) return Location3D_Any;
 
 end LMCP_Message_Conversions;

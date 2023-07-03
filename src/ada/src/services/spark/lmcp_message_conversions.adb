@@ -3,6 +3,11 @@ with AFRL.CMASI.Enumerations;
 with AFRL.CMASI.MissionCommand;                     use AFRL.CMASI.MissionCommand;
 with AFRL.CMASI.ServiceStatus;                      use AFRL.CMASI.ServiceStatus;
 with AFRL.CMASI.VehicleActionCommand;               use AFRL.CMASI.VehicleActionCommand;
+with AFRL.CMASI.LoiterAction;                       use AFRL.CMASI.LoiterAction;
+with AFRL.CMASI.AirVehicleState;                    use AFRL.CMASI.AirVehicleState;
+with AFRL.Vehicles.GroundVehicleState;              use AFRL.Vehicles.GroundVehicleState;
+with AFRL.Vehicles.SurfaceVehicleState;             use AFRL.Vehicles.SurfaceVehicleState;
+with AFRL.Vehicles.StationarySensorState;           use AFRL.Vehicles.StationarySensorState;
 with AFRL.Impact.ImpactAutomationResponse;          use AFRL.Impact.ImpactAutomationResponse;
 with AVTAS.LMCP.Types;
 with Common;
@@ -34,10 +39,6 @@ package body LMCP_Message_Conversions is
    function As_KeyValuePair_Acc
      (Msg : LMCP_Messages.KeyValuePair)
       return KeyValuePair_Acc;
-
-   function As_Location3D_Any
-     (Msg : LMCP_Messages.Location3D)
-      return Location3D_Any;
 
    function As_MissionCommand_Acc
      (Msg : LMCP_Messages.MissionCommand)
@@ -232,6 +233,18 @@ package body LMCP_Message_Conversions is
       Result.Id := Int64 (Msg.getID);
       Result.Location := As_Location3D_Message (Msg.getLocation);
       Result.Heading := Real32 (Msg.getHeading);
+      Result.Time := Int64 (Msg.getTime);
+      Result.GroundSpeed := Real32 (Msg.getGroundspeed);
+
+      if Msg.all in GroundVehicleState'Class then
+         Result.isGroundVehicleState := True;
+      elsif Msg.all in AirVehicleState'Class then
+         Result.isAirVehicleState := True;
+      elsif Msg.all in StationarySensorState'Class then
+         Result.isStationarySensorState := True;
+      elsif Msg.all in SurfaceVehicleState'Class then
+         Result.isSurfaceVehicleState := True;
+      end if;
 
       return Result;
    end As_EntityState_Message;
@@ -800,6 +813,26 @@ package body LMCP_Message_Conversions is
       return Result;
    end As_TaskAssignmentSummary_Acc;
 
+   --------------------------------------
+   -- As_TaskAssignmentSummary_Message --
+   --------------------------------------
+
+   function As_TaskAssignmentSummary_Message
+     (Msg : not null TaskAssignmentSummary_Any)
+      return LMCP_Messages.TaskAssignmentSummary
+   is
+      Result : LMCP_Messages.TaskAssignmentSummary;
+      use Common;
+   begin
+      Result.CorrespondingAutomationRequestID := Int64 (Msg.getCorrespondingAutomationRequestID);
+      Result.OperatingRegion := Int64 (Msg.getOperatingRegion);
+
+      for TaskAssignment of Msg.getTaskList.all loop
+         Result.TaskList := LMCP_Messages.Add (Result.TaskList, As_TaskAssignment_Message (TaskAssignment));
+      end loop;
+      return Result;
+   end As_TaskAssignmentSummary_Message;
+
    ---------------------------
    -- As_TaskAssignment_Acc --
    ---------------------------
@@ -819,6 +852,26 @@ package body LMCP_Message_Conversions is
 
       return Result;
    end As_TaskAssignment_Acc;
+
+   ---------------------------
+   -- As_TaskAssignment_Message --
+   ---------------------------
+
+   function As_TaskAssignment_Message
+     (Msg : TaskAssignment_Acc)
+      return LMCP_Messages.TaskAssignment
+   is
+      Result : LMCP_Messages.TaskAssignment;
+      use Common;
+   begin
+      Result.TaskID := (Int64 (Msg.getTaskID));
+      Result.OptionID := (Int64 (Msg.getOptionID));
+      Result.AssignedVehicle := (Int64 (Msg.getAssignedVehicle));
+      Result.TimeThreshold := (Int64 (Msg.getTimeThreshold));
+      Result.TimeTaskCompleted := (Int64 (Msg.getTimeTaskCompleted));
+
+      return Result;
+   end As_TaskAssignment_Message;
 
    --------------------------------------
    -- As_TaskAutomationRequest_Message --
@@ -1205,6 +1258,14 @@ package body LMCP_Message_Conversions is
    begin
       for VA of Msg.getAssociatedTaskList.all loop
          Result.AssociatedTaskList := Add (Result.AssociatedTaskList, Common.Int64 (VA));
+         if Msg.all in LoiterAction'Class then
+            Result.LoiterAction := True;
+            Result.LoiterType := LoiterAction_Any (Msg).getLoiterType;
+            Result.Radius := Real32 (LoiterAction_Any (Msg).getRadius);
+            Result.Location := As_Location3D_Message (LoiterAction_Any (Msg).getLocation);
+         else
+            Result.LoiterAction := False;
+         end if;
       end loop;
       return Result;
    end As_VehicleAction_Message;

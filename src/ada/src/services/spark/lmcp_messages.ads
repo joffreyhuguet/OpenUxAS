@@ -1,5 +1,6 @@
 with SPARK.Containers.Functional.Vectors;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with AFRL.CMASI.Enumerations; use AFRL.CMASI.Enumerations;
 with Common;                use Common;
 
 package LMCP_Messages with SPARK_Mode is
@@ -27,6 +28,12 @@ package LMCP_Messages with SPARK_Mode is
       Id : Int64 := 0;
       Location : Location3D;
       Heading : Real32 := 0.0;
+      Time : Int64;
+      GroundSpeed : Real32;
+      isGroundVehicleState : Boolean := False;
+      isAirVehicleState : Boolean := False;
+      isStationarySensorState : Boolean := False;
+      isSurfaceVehicleState : Boolean := False;
    end record;
 
    type PlanningState is record
@@ -73,6 +80,10 @@ package LMCP_Messages with SPARK_Mode is
       -- A list of tasks that are associated with this action. A length of zero denotes no associated tasks. This field is for analysis purposes. The automation service should associate a list of tasks with each action to enable analysis of the allocation of tasks to vehicles.
       --
       AssociatedTaskList : Int64_Seq;
+      LoiterAction : Boolean := False;
+      LoiterType : LoiterTypeEnum;
+      Radius : Real32;
+      Location : Location3D;
    end record;
 
    package VA_Sequences is new SPARK.Containers.Functional.Vectors
@@ -132,7 +143,7 @@ package LMCP_Messages with SPARK_Mode is
       Element_Type => MissionCommand);
    type MissionCommand_Seq is new MC_Sequences.Sequence;
 
-   type KeyValuePair is record
+   type KeyValuePair is new Message_Root with record
       -- A key (name) for the property
       Key : Unbounded_String := To_Unbounded_String ("");
       -- A value for the property
