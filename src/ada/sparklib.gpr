@@ -1,0 +1,11 @@
+project SPARKlib extends "sparklib_external" is
+   -- We have this as a separate project so that we're not obligated to
+   -- compile it with the same switches as the rest of our Ada code.
+
+   for Object_Dir use "objs/";
+
+   for Source_Dirs use SPARKlib_External'Source_Dirs;
+
+   for Excluded_Source_Files use SPARKlib_External'Excluded_Source_Files;
+
+end SPARKlib;
