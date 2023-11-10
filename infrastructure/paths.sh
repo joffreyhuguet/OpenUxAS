@@ -34,7 +34,9 @@ fi
 
 : "${INSTALL_LIBEXEC_DIR:=${INFRASTRUCTURE_DIR}/install-libexec}"
 : "${SOFTWARE_DIR:=${INFRASTRUCTURE_DIR}/software}"
-: "${GNAT_DIR:=${SOFTWARE_DIR}/gnat}"
+#: "${GNAT_DIR:=${SOFTWARE_DIR}/gnat}"
+: "${ALR_DIR:=${SOFTWARE_DIR}/alr}"
+
 
 : "${SPEC_DIR:=${INFRASTRUCTURE_DIR}/specs}"
 : "${SBX_DIR:=${INFRASTRUCTURE_DIR}/sbx}"
@@ -98,17 +100,23 @@ function activate_venv {
 # Make sure gnat is on the path or put a local GNAT CE on the path.
 #
 # Check for gnat availability with which. If this fails, check to see if
-# GNAT CE is installed locally. If not, try to install GNAT CE. If GNAT CE
+# GNAT FSF is installed locally. If not, try to install GNAT FSF. If GNAT FSF
 # cannot be installed, exit with an error.
 function ensure_gnat {
     which gnat >/dev/null 2>&1
 
     if [ $? -ne 0 ]; then
-        if [ -d "${GNAT_DIR}" ]; then
-            debug_and_run "export PATH=\"${GNAT_DIR}/bin:${PATH}\""
+        if [ -d "${ALR_DIR}" ]; then
+            debug_and_run "eval \"\$( cd \"${ALR_DIR}/gnatprove\" && ${ALR_DIR}/bin/alr -c ${ALR_DIR}/config printenv )\""
+            if [ $? -ne 0 ]; then
+                echo "Failed to add GNAT FSF to your environment with Alire."
+                echo "Try running your last command with \`-vv\` to see more information."
+
+                exit 1
+            fi
         else
             echo "For this step, you need an Ada compiler to continue."
-            echo "Let's install the GNAT Community compiler and support on which it depends."
+            echo "Let's install the GNAT FSF compiler and support on which it depends using Alire."
             echo " "
             echo "To do this, we will use apt. We will update the index and install all needed"
             echo "packages automatically. If you would prefer more control over how dependencies"
@@ -121,8 +129,8 @@ function ensure_gnat {
             if [[ "${_response}" != "n" ]]; then
                 debug_and_run "${INFRASTRUCTURE_DIR}/install --no-anod --no-java --automatic"
 
-                if [ -d "${GNAT_DIR}" ]; then
-                    debug_and_run "export PATH=\"${GNAT_DIR}/bin:${PATH}\""
+                if [ -d "${ALR_DIR}" ]; then
+                    debug_and_run "eval \"\$( cd \"${ALR_DIR}/gnatprove\" && ${ALR_DIR}/bin/alr printenv )\""
                 else
                     echo "Installing GNAT appears to have failed."
                     exit 1
